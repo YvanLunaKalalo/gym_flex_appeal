@@ -4,6 +4,8 @@ from django.contrib.auth import login, authenticate, logout
 from account.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from django.http import HttpResponse
 from django.template import loader
+from django.core.mail import send_mail
+from django.conf import settings
 
 def registration_view(request):
 	template = loader.get_template('register.html')
@@ -76,3 +78,18 @@ def account_view(request):
 			)
 	context['account_form'] = form
 	return HttpResponse(template.render(context, request))
+
+def password_reset_view(request):
+    template = loader.get_template('password_reset(sample).html')
+
+    context = {}
+
+    if request.method=="post":
+        email = request.post('email')
+        send_mail(
+        'Reset Password',
+        'settings.EMAIL_HOST_USER',
+        [email],
+        fail_silently = False
+		)
+    return HttpResponse(template.render(context, request))
