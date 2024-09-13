@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views # Reset Password and Change 
 
 urlpatterns = [
     path('register/', views.registration_view, name='register'),
+    path('terms-and-conditions/', views.terms_and_conditions_view, name='terms_and_conditions'),
     path('logout/', views.logout_view, name='logout'),
     path('login/', views.login_view, name='login'),
     path('account/', views.account_view, name='account'),

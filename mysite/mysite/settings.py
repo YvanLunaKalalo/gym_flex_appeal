@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'personal',
     'bootstrap5',
     'account',
+    'machine_learning',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
+
+# Path to the notebooks folder
+NOTEBOOKS_DIR = BASE_DIR / 'notebooks'
 
 TEMPLATES = [
     {
@@ -134,10 +138,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Gmail
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER ='kalaloyvan07@gmail.com'
-EMAIL_HOST_PASSWORD ='blec jarj xnwl gkrm'
+# Reset Password: Confirmation through Backend
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Doing Development
+
+# Reset Password: Confirmation through GMAIL
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER ='kalaloyvan07@gmail.com'
+# EMAIL_HOST_PASSWORD ='blec jarj xnwl gkrm'

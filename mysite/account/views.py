@@ -24,6 +24,10 @@ def registration_view(request):
 		
 	return HttpResponse(template.render(context, request))
 
+def terms_and_conditions_view(request):
+    template = loader.get_template('terms_and_conditions.html')
+    return HttpResponse(template.render({}, request))
+
 def logout_view(request):
 	logout(request)
 	return redirect('index') 
@@ -44,8 +48,14 @@ def login_view(request):
             email = request.POST['email']
             password = request.POST['password']
             user = authenticate(email=email, password=password)
-            
+
             if user:
+				# Prevent superusers from logging in through user login
+                if user.is_superuser:
+                    context['login_form'] = form
+                    context['error_message'] = "Admin account cannot log in here."
+                    return HttpResponse(template.render(context, request))
+				
                 login(request, user)
                 return redirect('index')
     else:

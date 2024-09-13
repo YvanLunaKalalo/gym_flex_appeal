@@ -44,7 +44,7 @@
 
 <div class="main-banner" id="top">
   <video autoplay muted loop id="bg-video">
-      <source src="{% static 'images/gym-video.mp4' %}" type="video/mp4" />
+      <source src="{% static 'images/gym-video(3).mp4' %}" type="video/mp4" />
   </video>
 
   <div class="video-overlay header-text">
@@ -68,9 +68,13 @@
             {% endfor %}
             
           {% if login_form.non_field_errors %}
-            <div style="color: red">
+            <div class="alert alert-danger">
                 <p>{{login_form.non_field_errors}}</p>
             </div>
+          {% endif %}
+
+          {% if error_message %}
+            <div class="alert alert-danger">{{ error_message }}</div>
           {% endif %}
         
           <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>

@@ -5,10 +5,17 @@ from account.models import Account
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(max_length=60, help_text='Required. Add a valid email address')
+	terms = forms.BooleanField(required=True, label="I agree to the terms and conditions")
 
 	class Meta:
 		model = Account
-		fields = ("email", "username", "password1", "password2")
+		fields = ("email", "username", "password1", "password2", "terms")
+	
+	def clean_terms(self):
+		terms = self.cleaned_data.get('terms')
+		if not terms:
+			raise forms.ValidationError("You must agree to the terms and conditions to register.")
+		return terms	
 		
 class AccountAuthenticationForm(forms.ModelForm):
 
@@ -23,8 +30,8 @@ class AccountAuthenticationForm(forms.ModelForm):
 			email = self.cleaned_data['email']
 			password = self.cleaned_data['password']
 			if not authenticate(email=email, password=password):
-				raise forms.ValidationError("Invalid login")
-			
+				raise forms.ValidationError("Invalid login")	
+	
 class AccountUpdateForm(forms.ModelForm):
 
 	class Meta:
