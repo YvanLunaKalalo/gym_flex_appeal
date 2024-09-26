@@ -3,112 +3,63 @@
 {% load static %}
 
 {% block title %}
-<title>Flex Appeal || Terms and Condition</title>
+<title>Flex Appeal || Workout Recommendations</title>
 {% endblock %}
 
 {% block content %}
 
-<style type="text/css">
-  .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-    background: white;
-  }
-
-  .form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-  }
-  .form-signin .form-control:focus {
-    z-index: 2;
-  }
-
-  .form-signin input[type="email"],
-  .form-signin input[type="text"],
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-  }
-
-  .h3 {
-    text-align: center;
-  }
-
-  /* Add background to the terms and conditions section */
-  .terms-container {
-    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency to show a bit of the video */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    max-width: 900px;
-    margin: auto;
-  }
-
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-
-</style>
-
 <div class="main-banner" id="top">
-  <video autoplay muted loop id="bg-video">
-      <source src="{% static 'images/gym-video(3).mp4' %}" type="video/mp4" />
-  </video>
+    <video autoplay muted loop id="bg-video">
+        <source src="{% static 'images/gym-video(4).mp4' %}" type="video/mp4" />
+    </video>
 
-  <div class="video-overlay header-text">
-    <div class="caption">
-      <div class="terms-container mt-5 text-dark">
-        <h5 class="text-center">Terms and Conditions of Use</h5>
-        <hr>
-
-        <p>
-        1. General Agreement<br>
-        By using the facilities and services provided by Flex Appeal, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully.
-        </p>
-
-        <p>
-          2. Acknowledgment of Risk<br>
-          You acknowledge that participation in physical exercise and the use of gym facilities involves inherent risks, including but not limited to, the risk of injury. You assume all such risks, both known and unknown, and agree that Flex Appeal is not responsible for any injuries, accidents, or damages that may occur.
-        </p>
-
-        <p>
-          3. No Coverage for Injuries<br>
-          Flex Appeal does not cover any injuries, accidents, or health issues that may occur while using the gym facilities or engaging in any activities provided by Flex Appeal. This includes, but is not limited to, injuries sustained during exercise, training, classes, or while using gym equipment. You are solely responsible for your safety and well-being.
-        </p>
-
-        <p>
-          4. Personal Responsibility<br>
-          You agree to use the facilities and equipment in accordance with the instructions provided by Flex Appeal and to follow all posted safety guidelines. You are responsible for ensuring that you are in adequate physical condition to participate in any activities or use any equipment. If you have any health concerns or conditions, it is your responsibility to consult with a medical professional before engaging in any activities at Flex Appeal.
-        </p>
-
-        <p>
-        5. Changes to Terms<br>
-        Flex Appeal reserves the right to modify these Terms and Conditions at any time. Continued use of the facilities constitutes acceptance of any changes.
-        </p>
-
-        <p>
-        6. Contact Information<br>
-        If you have any questions about these Terms and Conditions, please contact Flex Appeal at [contact information].
-        </p>
+    <div class="video-overlay header-text">
+        <div class="caption pt-5">
+            
+          <div class="terms-container mt-5 bg-white p-3 text-dark">
+            <h5 class="text-center">Terms and Conditions of Use</h5>
+            <hr>
         
-        <hr>
+            <p>
+            1. General Agreement<br>
+            By using the facilities and services provided by Flex Appeal, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully.
+            </p>
+        
+            <p>
+              2. Acknowledgment of Risk<br>
+              You acknowledge that participation in physical exercise and the use of gym facilities involves inherent risks, including but not limited to, the risk of injury. You assume all such risks, both known and unknown, and agree that Flex Appeal is not responsible for any injuries, accidents, or damages that may occur.
+            </p>
+        
+            <p>
+              3. No Coverage for Injuries<br>
+              Flex Appeal does not cover any injuries, accidents, or health issues that may occur while using the gym facilities or engaging in any activities provided by Flex Appeal. This includes, but is not limited to, injuries sustained during exercise, training, classes, or while using gym equipment. You are solely responsible for your safety and well-being.
+            </p>
+        
+            <p>
+              4. Personal Responsibility<br>
+              You agree to use the facilities and equipment in accordance with the instructions provided by Flex Appeal and to follow all posted safety guidelines. You are responsible for ensuring that you are in adequate physical condition to participate in any activities or use any equipment. If you have any health concerns or conditions, it is your responsibility to consult with a medical professional before engaging in any activities at Flex Appeal.
+            </p>
+        
+            <p>
+            5. Changes to Terms<br>
+            Flex Appeal reserves the right to modify these Terms and Conditions at any time. Continued use of the facilities constitutes acceptance of any changes.
+            </p>
+        
+            <p>
+            6. Contact Information<br>
+            If you have any questions about these Terms and Conditions, please contact Flex Appeal at [contact information].
+            </p>
+              
+            <hr>
+        
+            <div class="text-center mt-4 text">
+              <button type="button" class="btn btn-link"><a href="{% url 'register' %}">Go Back To Register</a></button>
+            </div>
+        
+          </div>
 
-        <div class="text-center mt-4 text">
-          <button type="button" class="btn btn-link"><a href="{% url 'register' %}">Go Back To Register</a></button>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
 
 {% endblock %}

@@ -8,110 +8,56 @@
 
 {% block content %}
 
-<style type="text/css">
-    .form-signin {
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: auto;
-        background: white;
-    }
-
-    .form-signin .form-control {
-        position: relative;
-        box-sizing: border-box;
-        height: auto;
-        padding: 10px;
-        font-size: 16px;
-    }
-
-    .form-signin .form-control:focus {
-        z-index: 2;
-    }
-
-    .form-signin input[type="email"] {
-        margin-bottom: 10px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .form-signin input[type="username"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .h3 {
-        text-align: center;
-    }
-
-    .video-overlay {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
-
-    .caption {
-        text-align: center;
-        color: white;
-    }
-
-    .result-text {
-        margin-top: 20px;
-        font-weight: bold;
-        color: white;
-        background-color: rgba(0, 0, 0, 0.6);
-        padding: 10px;
-        border-radius: 5px;
-        display: inline-block;
-    }
-
-</style>
-
 <div class="main-banner" id="top">
     <video autoplay muted loop id="bg-video">
         <source src="{% static 'images/gym-video(4).mp4' %}" type="video/mp4" />
     </video>
 
     <div class="video-overlay header-text">
-        <div class="caption">
+        <div class="caption pt-5">
             <!-- <h2 class="mb-4">Workout <em>Recommendations</em></h2> -->
 
             <!-- {{recommended_workouts}} -->
 
-            <div class="row justify-content-center">
+            <div class="row justify-content-center pt-5">
                 <div class="col-sm-12">
-                    <table class="table table-bordered table-dark table-striped" style="font-size: 0.85rem; width: 100%; height:20%, fixed;">
-                        <thead class="thead-dark">
-                            <tr class="text-center"> 
-                                <th style="width: 10%;">Title</th>
-                                <th style="width: 50%; height: 5%;">Description</th>
-                                <th style="width: 10%;">Type</th>
-                                <th style="width: 15%;">Body Part</th>
-                                <th style="width: 15%;">Equipment</th>
-                                <th style="width: 15%;">Level</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for workout in recommended_workouts %}
-                            <tr class="text-center"> 
-                                <td>{{ workout.Title }}</td>
-                                <td>{{ workout.Desc }}</td>
-                                <td>{{ workout.Type }}</td>
-                                <td>{{ workout.BodyPart }}</td>
-                                <td>{{ workout.Equipment }}</td>
-                                <td>{{ workout.Level }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-dark table-striped text-center" style="font-size: 0.85rem; width: 100%;">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th style="width: 10%;">Title</th>
+                          <th style="width: 50%;">Description</th>
+                          <th style="width: 10%;">Type</th>
+                          <th style="width: 15%;">Body Part</th>
+                          <th style="width: 15%;">Equipment</th>
+                          <th style="width: 15%;">Level</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for workout in recommended_workouts %}
+                        <tr>
+                          <td>{{ workout.Title }}</td>
+                          <td>{{ workout.Desc }}</td>
+                          <td>{{ workout.Type }}</td>
+                          <td>{{ workout.BodyPart }}</td>
+                          <td>{{ workout.Equipment }}</td>
+                          <td>{{ workout.Level }}</td>
+                          <td>
+                            <form method="POST" action="{% url 'update_progress' workout.Title %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="increment" value="10"> <!-- Adjust increment value as needed -->
+                              <button type="submit" class="btn btn-success">Track Progress</button>
+                            </form>                          
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
                     </table>
-
-                    <button type="button" class="btn btn-link"><a href="{% url 'recommend' %}">Go Back</a></button>
-
+                  </div>
+                
                 </div>
-            </div>
-
+              </div>  
+            
         </div>
     </div>
 </div>

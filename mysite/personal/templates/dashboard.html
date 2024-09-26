@@ -1,0 +1,87 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Flex Appeal || Dashboard</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <h2 class="text-center mb-4">User Dashboard</h2>
+
+    <!-- Row for User Profile, Workouts, and Progress -->
+    <div class="row pt-4">
+        <!-- User Profile Section -->
+        <div class="col-md-4 mb-4">
+            {% if user_profile %}
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5>User Profile</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><strong>Name:</strong> {{ request.user.username }}</li>
+                            <li><strong>Age:</strong> {{ user_profile.Age }}</li>
+                            <li><strong>Gender:</strong> {{ user_profile.Sex }}</li>
+                            <li><strong>Height:</strong> {{ user_profile.Height }} cm</li>
+                            <li><strong>Weight:</strong> {{ user_profile.Weight }} kg</li>
+                            <li><strong>BMI:</strong> {{ user_profile.BMI }}</li>
+                            <li><strong>Fitness Goal:</strong> {{ user_profile.Fitness_Goal }}</li>
+                            <li><strong>Fitness Type:</strong> {{ user_profile.Fitness_Type }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning mt-3">You need to complete your profile!</div>
+            {% endif %}
+        </div>
+
+        <!-- Available Workouts Section with collapsible dropdowns -->
+        <div class="col-md-4 mb-4">
+            <h5 class="text-center mb-4">Available Workouts</h5>
+            <div class="accordion" id="workoutAccordion">
+                {% for workout in workouts %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                                {{ workout.Title }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#workoutAccordion">
+                            <div class="accordion-body">
+                                <p>{{ workout.Desc }}</p>
+                                <p><strong>Type:</strong> {{ workout.Type }}</p>
+                                <p><strong>Body Part:</strong> {{ workout.BodyPart }}</p>
+                                <p><strong>Equipment:</strong> {{ workout.Equipment }}</p>
+                                <p><strong>Level:</strong> {{ workout.Level }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Your Progress Section -->
+        <div class="col-md-4 mb-4">
+            <h5 class="text-center mb-4">Your Progress</h5>
+            {% if user_progress %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for progress in user_progress %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ progress.workout.Title }}
+                                    <span class="badge bg-success rounded-pill">{{ progress.progress }}%</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info mt-3">No progress recorded yet!</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

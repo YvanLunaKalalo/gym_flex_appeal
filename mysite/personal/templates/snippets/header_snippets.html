@@ -51,11 +51,11 @@ https://templatemo.com/tm-548-training-studio
                         <a href="{% url 'index' %}" class="logo">Hello,<em> {{request.user.username}}!</em></a>
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="{% url 'index' %}" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#features">About</a></li>
-                            <li class="scroll-to-section"><a href="#our-classes">Classes</a></li>
-                            <li class="scroll-to-section"><a href="#trainers">Trainers</a></li>
-                            <li class="scroll-to-section"><a href="#contact-us">Contact</a></li> 
+                            <!-- <li class="scroll-to-section"><a href="#features">About</a></li>
+                            <li class="scroll-to-section"><a href="#our-classes">Classes</a></li> -->
+                            <li class="scroll-to-section"><a href="{% url 'dashboard' %}">Dashboard</a></li> 
                             <li class="scroll-to-section"><a href="{% url 'account' %}">Account</a></li> 
+                            <li class="scroll-to-section"><a href="#contact-us">Contact</a></li> 
                             <li class="main-button"><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     {% else %}

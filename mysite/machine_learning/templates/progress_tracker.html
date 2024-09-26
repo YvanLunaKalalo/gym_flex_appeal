@@ -1,0 +1,106 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>Flex Appeal || Progress Tracker</title>
+{% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+        background: white;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .form-signin .form-control:focus {
+        z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+        margin-bottom: 10px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="username"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .h3 {
+        text-align: center;
+    }
+
+    .video-overlay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .caption {
+        text-align: center;
+        color: white;
+    }
+
+    .result-text {
+        margin-top: 20px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+    }
+</style>
+
+<div class="main-banner" id="top">
+    <video autoplay muted loop id="bg-video">
+        <source src="{% static 'images/gym-video(4).mp4' %}" type="video/mp4" />
+    </video>
+
+    <div class="video-overlay header-text">
+        <div class="caption pt-5">
+
+            <div class="container">
+                <div class="container mt-5">
+                    <h2>Progress for Workout: <em>{{ workout.Title }}</em></h2>
+
+                    <p class="mt-3">Current Progress:</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                            {{ progress }}%
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3">User Profile Details:</p>
+                    <ul>
+                        <li>Age: {{ user_profile.Age }}</li>
+                        <li>Gender: {{ user_profile.Sex }}</li>
+                        <li>Fitness Level: {{ user_profile.Level }}</li>
+                        <!-- Add more profile details as necessary -->
+                    </ul>                    
+
+                        <a href="{% url 'recommend' %}" class="btn btn-secondary mt-4">Back to Recommendations</a>
+                        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
