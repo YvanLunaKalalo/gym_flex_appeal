@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.template import loader
 from personal.models import Contact
 from machine_learning.models import Workout, UserProfile, UserProgress
-from django.contrib import messages
 
 def index_view(request):
     template = loader.get_template('index.html')
@@ -37,10 +36,6 @@ def dashboard_view(request):
             user_profile = None  # If profile doesn't exist, keep it None
         
         user_progress = UserProgress.objects.filter(user=request.user)  # Get user's progress
-
-    # Check if workouts exist
-    if not workouts.exists():
-        messages.info(request, "No workouts available at the moment.")
     
     context = {
         'workouts': workouts,

@@ -8,58 +8,38 @@
 
 {% block content %}
 
-<div class="main-banner" id="top">
-    <video autoplay muted loop id="bg-video">
-        <source src="{% static 'images/gym-video(4).mp4' %}" type="video/mp4" />
-    </video>
+<div class="main-banner pt-5 bg-dark" id="top">
 
-    <div class="video-overlay header-text">
-        <div class="caption pt-5">
-            <!-- <h2 class="mb-4">Workout <em>Recommendations</em></h2> -->
-
-            <!-- {{recommended_workouts}} -->
-
-            <div class="row justify-content-center pt-5">
-                <div class="col-sm-12">
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-dark table-striped text-center" style="font-size: 0.85rem; width: 100%;">
-                      <thead class="thead-dark">
-                        <tr>
-                          <th style="width: 10%;">Title</th>
-                          <th style="width: 50%;">Description</th>
-                          <th style="width: 10%;">Type</th>
-                          <th style="width: 15%;">Body Part</th>
-                          <th style="width: 15%;">Equipment</th>
-                          <th style="width: 15%;">Level</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for workout in recommended_workouts %}
-                        <tr>
-                          <td>{{ workout.Title }}</td>
-                          <td>{{ workout.Desc }}</td>
-                          <td>{{ workout.Type }}</td>
-                          <td>{{ workout.BodyPart }}</td>
-                          <td>{{ workout.Equipment }}</td>
-                          <td>{{ workout.Level }}</td>
-                          <td>
-                            <form method="POST" action="{% url 'update_progress' workout.Title %}">
-                              {% csrf_token %}
-                              <input type="hidden" name="increment" value="10"> <!-- Adjust increment value as needed -->
-                              <button type="submit" class="btn btn-success">Track Progress</button>
-                            </form>                          
-                          </td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                
-                </div>
-              </div>  
-            
+  <!-- Workout Recommendations Section -->
+  <div class="container pt-5"> <!-- Added Bootstrap container and pt-5 for top padding -->
+    <div class="row justify-content-center">
+      <div class="col-sm-12">
+        <div class="row">
+          {% for workout in recommended_workouts %}
+          <div class="col-md-4 mb-4">
+            <div class="card shadow-sm bg-dark text-white">
+              <div class="card-body">
+                <h5 class="card-title">{{ workout.Title }}</h5>
+                <p class="card-text">{{ workout.Desc }}</p>
+                <p><strong>Type:</strong> {{ workout.Type }}</p>
+                <p><strong>Body Part:</strong> {{ workout.BodyPart }}</p>
+                <p><strong>Equipment:</strong> {{ workout.Equipment }}</p>
+                <p><strong>Level:</strong> {{ workout.Level }}</p>
+                <form method="POST" action="{% url 'update_progress' workout.Title %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="increment" value="10"> <!-- Adjust increment value as needed -->
+                  <button type="submit" class="btn btn-success w-100 mt-2">Track Progress</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
+      </div>
     </div>
+  </div>
+</div>
+</div>
 </div>
 
 {% endblock %}

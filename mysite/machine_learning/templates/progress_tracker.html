@@ -80,14 +80,14 @@
                 <div class="container mt-5">
                     <h2>Progress for Workout: <em>{{ workout.Title }}</em></h2>
 
-                    <p class="mt-3">Current Progress:</p>
+                    <p class="mt-3 text-white">Current Progress:</p>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
                             {{ progress }}%
                         </div>
                     </div>
                     
-                    <p class="mt-3">User Profile Details:</p>
+                    <p class="mt-3 text-white">User Profile Details:</p>
                     <ul>
                         <li>Age: {{ user_profile.Age }}</li>
                         <li>Gender: {{ user_profile.Sex }}</li>
@@ -95,7 +95,7 @@
                         <!-- Add more profile details as necessary -->
                     </ul>                    
 
-                        <a href="{% url 'recommend' %}" class="btn btn-secondary mt-4">Back to Recommendations</a>
+                        <a href="{% url 'recommend' %}" class="btn btn-primary mt-4">Back to Recommendations</a>
                         
                 </div>
             </div>

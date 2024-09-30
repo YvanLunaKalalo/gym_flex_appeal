@@ -6,9 +6,6 @@ import pandas as pd
 from django.conf import settings
 from sklearn.metrics.pairwise import cosine_similarity
 from .models import Workout, UserProfile, UserProgress
-import matplotlib.pyplot as plt
-import io
-import base64
 
 # Load the pre-trained model
 model1 = load('./Saved_Models/model1.joblib') # BMI
