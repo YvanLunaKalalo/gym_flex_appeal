@@ -9,42 +9,6 @@
 {% block content %}
 
 <style type="text/css">
-    .form-signin {
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: auto;
-        background: white;
-    }
-
-    .form-signin .form-control {
-        position: relative;
-        box-sizing: border-box;
-        height: auto;
-        padding: 10px;
-        font-size: 16px;
-    }
-
-    .form-signin .form-control:focus {
-        z-index: 2;
-    }
-
-    .form-signin input[type="email"] {
-        margin-bottom: 10px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-
-    .form-signin input[type="username"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
-
-    .h3 {
-        text-align: center;
-    }
-
     .video-overlay {
         display: flex;
         justify-content: center;
@@ -66,38 +30,62 @@
         border-radius: 5px;
         display: inline-block;
     }
+
+    .progress-container {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .progress-bar-custom {
+        background-color: #ed563b;
+    }
 </style>
 
-<div class="main-banner" id="top">
-    <video autoplay muted loop id="bg-video">
-        <source src="{% static 'images/gym-video(4).mp4' %}" type="video/mp4" />
-    </video>
+<div class="main-banner pt-5" id="top">
+    <div class="container mt-5">
+        <div class="card bg-dark text-white shadow-lg p-4 mb-5">
+            <div class="card-body">
+                <h2 class="card-title text-center">Progress for Workout: <em>{{ workout.Title }}</em></h2>
 
-    <div class="video-overlay header-text">
-        <div class="caption pt-5">
-
-            <div class="container">
-                <div class="container mt-5">
-                    <h2>Progress for Workout: <em>{{ workout.Title }}</em></h2>
-
-                    <p class="mt-3 text-white">Current Progress:</p>
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-container mt-4">
+                    <h4>Current Progress</h4>
+                    <div class="progress mb-3">
+                        <div class="progress-bar progress-bar-custom" role="progressbar" style="width: {{ progress }}%;"
+                            aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
                             {{ progress }}%
                         </div>
                     </div>
-                    
-                    <p class="mt-3 text-white">User Profile Details:</p>
-                    <ul>
-                        <li>Age: {{ user_profile.Age }}</li>
-                        <li>Gender: {{ user_profile.Sex }}</li>
-                        <li>Fitness Level: {{ user_profile.Level }}</li>
-                        <!-- Add more profile details as necessary -->
-                    </ul>                    
-
-                        <a href="{% url 'recommend' %}" class="btn btn-primary mt-4">Back to Recommendations</a>
-                        
                 </div>
+
+                <div class="user-profile mt-4">
+                    <h4>User Profile Details</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-transparent text-white">Age: {{ user_profile.Age }}</li>
+                        <li class="list-group-item bg-transparent text-white">Gender: {{ user_profile.Sex }}</li>
+                        <li class="list-group-item bg-transparent text-white">Fitness Level: {{ user_profile.Level }}
+                        </li>
+                        <li class="list-group-item bg-transparent text-white">Progress: {{ progress }}%</li>
+                        <li class="list-group-item bg-transparent text-white">Date of Progress Update: {{ progress_date }}</li>
+                    </ul>
+                </div>
+
+                <!-- Edit Button -->
+                <div class="mt-4 text-center">
+                    <a href="{% url 'recommend' %}" class="btn btn-primary w-100"
+                        style="background-color: #ed563b; border: none;">
+                        Back to Form
+                    </a>
+                </div>
+
+                <!-- Bac to Home Button -->
+                <div class="mt-4 text-center">
+                    <a href="{% url 'index' %}" class="btn btn-primary w-100"
+                        style="background-color: #ed563b; border: none;">
+                        Back to Home
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

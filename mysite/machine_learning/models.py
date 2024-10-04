@@ -41,6 +41,7 @@ class UserProgress(models.Model):
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE)
     progress = models.PositiveIntegerField()  # Percentage or count of completed workouts
     date = models.DateField(auto_now_add=True)
+    progress_date = models.DateField(auto_now=True)  # Automatically update the date whenever the progress is updated
     
     def __str__(self):
         return f"{self.user.username} - {self.workout.Title} - {self.progress}%"

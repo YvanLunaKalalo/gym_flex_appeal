@@ -13,6 +13,6 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(UserProgress)
 class UserProgressAdmin(admin.ModelAdmin):
-    list_display = ('user', 'workout', 'progress', 'date')
+    list_display = ('user', 'workout', 'progress', 'date', 'progress_date')
     search_fields = ('user__username', 'workout__Title')
 

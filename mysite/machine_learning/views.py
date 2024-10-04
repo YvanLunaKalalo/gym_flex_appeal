@@ -216,19 +216,23 @@ def workout_recommendation_view(request):
         top_indices = similarity_scores[0].argsort()[-4:][::-1]
         recommended_workouts = workout_data.iloc[top_indices]
 
-        # Save recommended workouts to the Workout model if they don't already exist
+        # Save recommended workouts to the UserProgress model
         for _, workout in recommended_workouts.iterrows():
-            Workout.objects.get_or_create(
-                Title=workout['Title'],
-                defaults={
-                    'Desc': workout['Desc'],
-                    'Type': workout['Type'],
-                    'BodyPart': workout['BodyPart'],
-                    'Equipment': workout.get('Equipment', 'None'),
-                    'Level': workout.get('Level', 'None')
-                }
+            UserProgress.objects.get_or_create(
+                user=request.user,
+                workout=Workout.objects.get_or_create(
+                    Title=workout['Title'],
+                    defaults={
+                        'Desc': workout['Desc'],
+                        'Type': workout['Type'],
+                        'BodyPart': workout['BodyPart'],
+                        'Equipment': workout.get('Equipment', 'None'),
+                        'Level': workout.get('Level', 'None')
+                    }
+                )[0],
+                defaults={'progress': 0}  # Initialize progress
             )
-
+            
         # Calculate dynamic progress
         progress = calculate_progress(request.user)  # Dynamically calculate progress for the user
 
@@ -301,6 +305,7 @@ def update_progress_view(request, workout_title):
         'workout': workout,
         'progress': progress_percentage,
         'user_profile': user_profile,
+        'progress_date': progress_entry.progress_date,
     }
 
     return render(request, 'progress_tracker.html', context)

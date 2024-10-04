@@ -8,11 +8,14 @@
 
 {% block content %}
 
-<div class="main-banner pt-5 bg-dark" id="top">
+<div class="main-banner pt-5" id="top">
 
   <!-- Workout Recommendations Section -->
   <div class="container pt-5"> <!-- Added Bootstrap container and pt-5 for top padding -->
     <div class="row justify-content-center">
+
+      <h2 class="text-center mb-4">User Dashboard</h2>
+
       <div class="col-sm-12">
         <div class="row">
           {% for workout in recommended_workouts %}
@@ -38,8 +41,6 @@
       </div>
     </div>
   </div>
-</div>
-</div>
 </div>
 
 {% endblock %}
