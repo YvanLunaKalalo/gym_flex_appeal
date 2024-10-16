@@ -22,12 +22,12 @@ class UserProfile(models.Model):
     Age = models.PositiveIntegerField()
     Height = models.FloatField()
     Weight = models.FloatField()
-    Hypertension = models.CharField(max_length=3)
-    Diabetes = models.CharField(max_length=3)
+    Hypertension = models.CharField(max_length=3, default='No')
+    Diabetes = models.CharField(max_length=3, default='No')
     BMI = models.FloatField()
-    Level = models.CharField(max_length=50)
-    Fitness_Goal = models.CharField(max_length=50)
-    Fitness_Type = models.CharField(max_length=50)
+    Level = models.CharField(max_length=50, default='Normal')
+    Fitness_Goal = models.CharField(max_length=5, default='Weight_Loss')
+    Fitness_Type = models.CharField(max_length=50, default='Cardio_Fitness')
 
     def __str__(self):
         return self.user.username

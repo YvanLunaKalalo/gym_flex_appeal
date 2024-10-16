@@ -8,34 +8,36 @@
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <h2 class="text-center mb-4 pt-4">User Dashboard</h2>
+    <h2 class="text-center mb-4">User Dashboard</h2>
 
     <!-- Column layout for User Profile, Workouts, and Progress -->
-    <div class="col pt-4">
+    <div class="row">
         <div class="col-md-12 mb-4">
-            <h5 class="text-center mb-4">Profile Form</h5>
+            <h5 class="text-center mb-4">Profile Information</h5>
 
             <!-- User Profile Section -->
             {% if user_profile %}
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header">
-                        <h5>User Profile</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li><strong>Name:</strong> {{ request.user.username }}</li>
-                            <li><strong>Age:</strong> {{ user_profile.Age }}</li>
-                            <li><strong>Gender:</strong> {{ user_profile.Sex }}</li>
-                            <li><strong>Height:</strong> {{ user_profile.Height }} cm</li>
-                            <li><strong>Weight:</strong> {{ user_profile.Weight }} kg</li>
-                            <li><strong>BMI:</strong> {{ user_profile.BMI }}</li>
-                            <li><strong>Fitness Goal:</strong> {{ user_profile.Fitness_Goal }}</li>
-                            <li><strong>Fitness Type:</strong> {{ user_profile.Fitness_Type }}</li>
-                        </ul>
-                    </div>
+            <div class="card shadow-sm mb-4 border-0">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">User Profile</h5>
                 </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Name:</strong> {{ request.user.username }}</li>
+                        <li><strong>Age:</strong> {{ user_profile.Age }}</li>
+                        <li><strong>Gender:</strong> {{ user_profile.Sex }}</li>
+                        <li><strong>Height:</strong> {{ user_profile.Height }} cm</li>
+                        <li><strong>Weight:</strong> {{ user_profile.Weight }} kg</li>
+                        <li><strong>BMI:</strong> {{ user_profile.BMI }}</li>
+                        <li><strong>Fitness Goal:</strong> {{ user_profile.Fitness_Goal }}</li>
+                        <li><strong>Fitness Type:</strong> {{ user_profile.Fitness_Type }}</li>
+                    </ul>
+                </div>
+            </div>
             {% else %}
-                <div class="alert alert-info mt-3">You need to complete your profile!</div>
+            <div class="alert alert-warning text-center mt-3">
+                <strong>You need to complete your profile!</strong>
+            </div>
             {% endif %}
         </div>
 
@@ -45,13 +47,16 @@
             {% if workouts %}
             <div class="accordion" id="workoutAccordion">
                 {% for workout in workouts %}
-                <div class="accordion-item mb-3">
+                <div class="accordion-item mb-3 border-0">
                     <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
+                                aria-controls="collapse{{ forloop.counter }}">
                             {{ workout.Title }}
                         </button>
                     </h2>
-                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#workoutAccordion">
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                         aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#workoutAccordion">
                         <div class="accordion-body">
                             <p>{{ workout.Desc }}</p>
                             <p><strong>Type:</strong> {{ workout.Type }}</p>
@@ -60,12 +65,12 @@
                             <p><strong>Level:</strong> {{ workout.Level }}</p>
                         </div>
                     </div>
-                </div>     
+                </div>
                 {% endfor %}
             </div>
             {% else %}
-            <div class="alert alert-info mt-3">  
-                No workout recorded yet!
+            <div class="alert alert-info text-center mt-3">
+                <strong>No workouts recorded yet!</strong>
             </div>
             {% endif %}
         </div>
@@ -74,32 +79,31 @@
             <!-- Your Progress Section -->
             <h5 class="text-center mb-4">Your Progress</h5>
             {% if user_progress %}
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <ul class="list-group">
-                            {% for progress in user_progress %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ progress.workout.Title }}
-                                    <span class="badge bg-success rounded-pill">{{ progress.progress }}%</span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for progress in user_progress %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ progress.workout.Title }}
+                            <span class="badge bg-success rounded-pill">{{ progress.progress }}%</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
+            </div>
             {% else %}
-                <div class="alert alert-info mt-3">No progress recorded yet!</div>
+            <div class="alert alert-info text-center mt-3">
+                <strong>No progress recorded yet!</strong>
+            </div>
             {% endif %}
         </div>
 
         <!-- Back to Home Button -->
-         <!-- Submit Button -->
-         <div class="mt-4 text-center">
-            <a href="{% url 'index' %}" class="btn btn-primary w-100"
-                style="background-color: #ed563b; border: none;">
+        <div class="mt-4 text-center">
+            <a href="{% url 'index' %}" class="btn btn-primary w-100" style="background-color: #ed563b; border: none;">
                 Back to Home
             </a>
         </div>
-
     </div>
 </div>
 {% endblock %}

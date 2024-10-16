@@ -1,2 +1,0 @@
-*.joblib filter=lfs diff=lfs merge=lfs -text
-mysite/Saved_Models/model2.joblib filter=lfs diff=lfs merge=lfs -text

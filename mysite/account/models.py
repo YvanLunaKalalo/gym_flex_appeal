@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class MyAccountManager(BaseUserManager):
-	def create_user(self, email, username, password=None):
+	def create_user(self, email, username, password=None, **extra_fields):
 		if not email:
 			raise ValueError('Users must have an email address')
 		if not username:
@@ -17,7 +17,7 @@ class MyAccountManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 
-	def create_superuser(self, email, username, password):
+	def create_superuser(self, email, username, password, **extra_fields):
 		user = self.create_user(
 			email=self.normalize_email(email),
 			password=password,
@@ -29,7 +29,7 @@ class MyAccountManager(BaseUserManager):
 		user.save(using=self._db)
 		return user
 	
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
 	email 					= models.EmailField(verbose_name="email", max_length=60, unique=True)
 	username 				= models.CharField(max_length=30, unique=True)
 	date_joined				= models.DateTimeField(verbose_name='date joined', auto_now_add=True)
@@ -55,3 +55,7 @@ class Account(AbstractBaseUser):
 	# Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
 	def has_module_perms(self, app_label):
 		return True
+
+	def get_all_permissions(self, obj=None):
+        # Return the permissions for this user
+		return super().get_all_permissions(obj)
