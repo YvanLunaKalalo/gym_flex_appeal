@@ -9,8 +9,6 @@ from .models import Workout, UserProfile, UserProgress
 
 # Load the pre-trained model
 model1 = load('./Saved_Models/model1.joblib') # BMI
-model2 = load('./Saved_Models/model2.joblib') # workout
-model3 = load('./Saved_Models/model4.joblib') # Recommended Workout
 vectorizer = load('./Saved_Models/vectorizer.pkl') # Recommended Workout 2
 
 # Load workout data (you might need to adjust the file path)
@@ -55,93 +53,6 @@ def bmi_view(request):
 
     return HttpResponse(template.render(context, request))
 
-def workout_view(request):
-    template = loader.get_template('workout.html')
-
-    context = {}
-
-    if request.method == 'POST':
-        Gender = request.POST['Gender']
-        Height = float(request.POST['Height'])
-        Weight = float(request.POST['Weight'])
-        Index = float(request.POST['Index'])
-
-        # Ensure the feature names match those used during model training
-        columns = ['Gender', 'Height', 'Weight', 'Index']
-        data = {
-            'Gender': [Gender],
-            'Height': [Height],
-            'Weight': [Weight],
-            'Index': [Index],
-        }
-
-        # Create a DataFrame with the correct feature order
-        input_data = pd.DataFrame(data, columns=columns)
-
-        # Predict using the loaded model
-        y_pred = model2.predict(input_data)
-
-        # Convert predictions to a list of recommendations
-        recommendations = y_pred.tolist()
-
-        # Add predictions to context
-        context['recommendations'] = recommendations
-
-    return HttpResponse(template.render(context, request))
-
-def recommended_workout_view(request):
-    template = loader.get_template('recommended_workout.html')
-
-    context = {}
-
-    if request.method == 'POST':
-        # Extract user data from the request
-        Weight = float(request.POST.get('Weight'))
-        Height = float(request.POST.get('Height'))
-        Bmi = float(request.POST.get('BMI'))
-        # Gender = request.POST.get('Gender')
-        # Age = float(request.POST.get('age'))
-        # BMIcase = request.POST.get('BMIcase')
-        # Add other necessary fields
-        
-        # Prepare the input data for prediction
-        user_data = pd.DataFrame({
-            'Weight': [Weight],
-            'Height': [Height],
-            'BMI' : [Bmi],
-            # 'Gender': [Gender],
-            # 'Age' : [Age],
-            # 'BMIcase_sever_thinness' : [1 if BMIcase == 'sever thinness' else 0],
-            # 'BMIcase_moderate_thinness' : [1 if BMIcase == 'moderate thinness' else 0],
-            # 'BMIcase_mild_thinness' : [1 if BMIcase == 'mild thinness' else 0],
-            # 'BMIcase_normal' : [1 if BMIcase == 'normal' else 0],
-            # 'BMIcase_over_weight' : [1 if BMIcase == 'over weight' else 0],
-            # 'BMIcase_obese' : [1 if BMIcase == 'obese' else 0],
-            # 'BMIcase_sever_obese' : [1 if BMIcase == 'sever obese' else 0],
-        })
-
-        # Preprocess the input data
-        # user_data = preprocess(user_data)  # Use your column transformer here
-
-        # Predict
-        y_pred = model3.predict(user_data)[0]
-
-        # Fetch recommended workouts based on the predictions
-        # For simplicity, assume that predictions map to workout IDs
-        recommended_workouts = get_recommended_workout_view(y_pred)
-
-        # Pass the recommended workouts to the template context
-        context['workouts'] = recommended_workouts
-        # context['workouts'] = [{'Title': 'Sample Workout 1'}, {'Title': 'Sample Workout 2'}]
-
-    return HttpResponse(template.render(context, request))
-
-def get_recommended_workout_view(y_pred):
-    # Fetch recommended workouts from your dataset or API based on predictions
-    workout_data = pd.read_csv(settings.NOTEBOOKS_DIR / 'Datasets' / 'archive(2)' / 'megaGymDataset.csv')
-    recommended = workout_data[workout_data['Unnamed: 0'] == y_pred]
-    return recommended.to_dict(orient='records')
-
 # Define the view for workout recommendations
 def workout_recommendation_view(request):
     template = loader.get_template("profile_form.html")  # Your form template
@@ -157,10 +68,19 @@ def workout_recommendation_view(request):
         Weight = request.POST.get('Weight', '')
         Hypertension = request.POST.get('Hypertension', '')
         Diabetes = request.POST.get('Diabetes', '')
-        BMI = request.POST.get('BMI', '')
         Level = request.POST.get('Level', '')
         Fitness_Goal = request.POST.get('Fitness Goal', '')
         Fitness_Type = request.POST.get('Fitness Type', '')
+        
+        # Calculate BMI (BMI = weight in kg / (height in meters)^2)
+        try:
+            height_in_centimeters = float(Height) / 100  # Convert height from cm to meters
+            weight_in_kg = float(Weight)  # Convert weight to kg
+            BMI = weight_in_kg / (height_in_centimeters ** 2)
+            BMI = round(BMI, 2)  # Round to two decimal places
+        except (ValueError, ZeroDivisionError):
+            # If there's an invalid input for height or weight, set BMI to None
+            BMI = None
 
         # Save profile data in the database
         profile, created = UserProfile.objects.get_or_create(

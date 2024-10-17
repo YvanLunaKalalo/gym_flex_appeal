@@ -71,15 +71,23 @@
         font-weight: bold;
         letter-spacing: 1px;
         transition: background-color 0.3s ease;
+        color: white;
+        margin-bottom: 20px;
     }
 
     .btn-custom:hover {
-        background-color: #f76c53;
+        background-color: white;
+        color: #ed563b;
     }
 </style>
 
 <div class="main-banner pt-5" id="top">
     <div class="container mt-5">
+
+        <a href="{% url 'recommend' %}" class="btn btn-custom">
+            Go Back
+        </a>
+
         <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded-lg">
             <div class="card-body">
                 <!-- Title for the progress page -->
@@ -107,7 +115,7 @@
                         </li>
                         <li class="list-group-item bg-transparent text-white"><strong>Gender:</strong> {{ user_profile.Sex }}
                         </li>
-                        <li class="list-group-item bg-transparent text-white"><strong>Fitness Level:</strong> {{ user_profile.Level }}</li>
+                        <!-- <li class="list-group-item bg-transparent text-white"><strong>Fitness Level:</strong> {{ user_profile.Level }}</li> -->
                         <li class="list-group-item bg-transparent text-white"><strong>Progress:</strong> {{ progress }}%</li>
                         <li class="list-group-item bg-transparent text-white"><strong>Date of Progress Update:</strong> {{ progress_date }}</li>
                     </ul>

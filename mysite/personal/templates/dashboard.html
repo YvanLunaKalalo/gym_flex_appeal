@@ -18,7 +18,7 @@
             <!-- User Profile Section -->
             {% if user_profile %}
             <div class="card shadow-sm mb-4 border-0">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-black">
                     <h5 class="mb-0">User Profile</h5>
                 </div>
                 <div class="card-body">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             {% else %}
-            <div class="alert alert-warning text-center mt-3">
+            <div class="alert alert-info text-center mt-3">
                 <strong>You need to complete your profile!</strong>
             </div>
             {% endif %}
@@ -84,7 +84,7 @@
                     <ul class="list-group">
                         {% for progress in user_progress %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ progress.workout.Title }}
+                            {{ progress.workout.Title }} : <em>{{ progress.progress_date }}</em>
                             <span class="badge bg-success rounded-pill">{{ progress.progress }}%</span>
                         </li>
                         {% endfor %}
