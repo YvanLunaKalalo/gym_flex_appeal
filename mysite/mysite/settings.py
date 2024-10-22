@@ -145,12 +145,12 @@ if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Doing Development
 
 # Registration and Reset Password Confirmation through GMAIL
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER ='kalaloyvan07@gmail.com'
-# EMAIL_HOST_PASSWORD ='blec jarj xnwl gkrm'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER ='kalaloyvan07@gmail.com'
+EMAIL_HOST_PASSWORD ='blec jarj xnwl gkrm'
 
 #Jazzmin Configuration
 JAZZMIN_SETTINGS = {
