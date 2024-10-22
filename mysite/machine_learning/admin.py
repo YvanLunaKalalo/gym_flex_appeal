@@ -8,8 +8,8 @@ class WorkoutAdmin(admin.ModelAdmin):
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'Sex', 'Age', 'Height', 'Weight', 'BMI', 'Level', 'Fitness_Goal', 'Fitness_Type')
-    search_fields = ('user__username', 'Sex', 'Level', 'Fitness_Goal', 'Fitness_Type')
+    list_display = ('user', 'Sex', 'Age', 'Height', 'Weight', 'BMI', 'Fitness_Goal', 'Fitness_Type')
+    search_fields = ('user__username', 'Sex', 'Fitness_Goal', 'Fitness_Type')
 
 @admin.register(UserProgress)
 class UserProgressAdmin(admin.ModelAdmin):

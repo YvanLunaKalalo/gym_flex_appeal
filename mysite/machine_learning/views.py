@@ -133,7 +133,7 @@ def workout_recommendation_view(request):
         similarity_scores = cosine_similarity(profile_vector, workout_features_matrix)
 
         # Get top 5 recommended workouts
-        top_indices = similarity_scores[0].argsort()[-4:][::-1]
+        top_indices = similarity_scores[0].argsort()[-5:][::-1]
         recommended_workouts = workout_data.iloc[top_indices]
 
         # Save recommended workouts to the UserProgress model
