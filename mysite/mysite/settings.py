@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-l#awhl+_(-h3z=!j1#wf=*+!%u2upmy0*(1m0x_%u0^pk58u8x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gym-flex-appeal.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # if DEBUG:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Doing Development
@@ -139,8 +139,6 @@ STATIC_URL = 'static/'
 STATIC_DIRS = [os.path.join(BASE_DIR, 'personal/static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
