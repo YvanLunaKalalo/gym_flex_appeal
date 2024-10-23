@@ -1,3 +1,6 @@
 [build]
 python_version = "3.9"
 nixpacks = { languages = ["python"] }
+
+[install]
+preinstall = "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && . $HOME/.cargo/env && echo 'export PATH=\"$HOME/.cargo/bin:$PATH\"' >> ~/.bashrc && source ~/.bashrc && rustup --version && cargo --version"
