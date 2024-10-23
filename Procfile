@@ -1,1 +1,1 @@
-web: gunicorn mysite.wsgi:application
+web: gunicorn mysite.wsgi:application --bind 0.0.0.0:8080
