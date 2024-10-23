@@ -1,1 +1,1 @@
-web: gunicorn mysite.wsgi:application --bind 0.0.0.0:8080
+web: python "C:\Users\Yvan\gym_capstone\mysite\manage.py" runserver 0.0.0.0:8080
