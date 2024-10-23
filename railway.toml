@@ -3,7 +3,9 @@ python_version = "3.11"
 nixpacks = { languages = ["python"] }
 
 [install]
+# Install Python dependencies
 reinstall = """
+pip install -r requirements.txt
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 . $HOME/.cargo/env
 echo 'export PATH=\"$HOME/.cargo/bin:$PATH\"' >> ~/.bashrc
